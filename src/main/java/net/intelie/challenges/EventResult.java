@@ -1,28 +1,42 @@
 package net.intelie.challenges;
 
-import java.util.LinkedList;
-import java.util.Vector;
+import java.util.*;
 
 public class EventResult implements EventIterator {
-    EventVector event = new EventVector();
-    
-    public EventResult(EventVector listEvent) {
-        this.event = listEvent;
+    private final Iterator<Event> eventIterator;
+    private static int countMoveNext = 0;
+    private Event current;
+
+    public EventResult( Vector<Event> listEvent) {
+        this.current = listEvent.firstElement();
+        this.eventIterator = listEvent.iterator();
     }
 
+
     @Override
-    public boolean moveNext() {
+    public synchronized boolean moveNext() {
+       if (this.eventIterator.hasNext()) {
+            this.eventIterator.next();
+         this.current = this.eventIterator.next();
+           countMoveNext++;
+         return true;
+        }
         return false;
     }
 
     @Override
-    public Event current() {
-        return null;
-    }
+    public synchronized Event current() {
+        return this.current;
+        }
+
 
     @Override
-    public void remove() {
-
+    public synchronized void remove() {
+        if((!this.eventIterator.hasNext())|| countMoveNext ==0) {
+            throw new IllegalStateException();
+        } else {
+            eventIterator.remove();
+        }
     }
 
     @Override
@@ -30,3 +44,4 @@ public class EventResult implements EventIterator {
 
     }
 }
+

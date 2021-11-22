@@ -29,9 +29,6 @@ public interface EventStore {
      * @param type      The type we are querying for.
      * @param startTime Start timestamp (inclusive).
      * @param endTime   End timestamp (exclusive).
-     * @return An iterator where all its events have same type as
-     * {@param type} and timestamp between {@param startTime}
-     * (inclusive) and {@param endTime} (exclusive).
      */
-    EventIterator query(String type, long startTime, long endTime);
+    EventIterator  query(String type, long startTime, long endTime);
 }

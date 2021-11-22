@@ -12,11 +12,19 @@ public class Event {
         this.timestamp = timestamp;
     }
 
-    public String type() {
+    public  String type() {
         return type;
     }
 
-    public long timestamp() {
+    public  long timestamp() {
         return timestamp;
+    }
+
+    @Override
+    public  String toString() {
+        return "Event{" +
+                "type='" + type + '\'' +
+                ", timestamp=" + timestamp +
+                '}';
     }
 }
